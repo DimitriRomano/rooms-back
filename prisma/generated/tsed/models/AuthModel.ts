@@ -1,5 +1,5 @@
 import { Auth } from "../client";
-import { Integer, Required, Property, Format, Enum, CollectionOf, Allow } from "@tsed/schema";
+import { Integer, Required, Property, Format, Enum, Allow } from "@tsed/schema";
 import { Role } from "../enums";
 import { AdminModel } from "./AdminModel";
 import { HotelModel } from "./HotelModel";
@@ -33,17 +33,17 @@ export class AuthModel implements Auth {
   @Enum(Role)
   role: Role;
 
-  @CollectionOf(() => AdminModel)
-  @Required()
-  Admin: AdminModel[];
+  @Property(() => AdminModel)
+  @Allow(null)
+  Admin: AdminModel | null;
 
-  @CollectionOf(() => HotelModel)
-  @Required()
-  Hotel: HotelModel[];
+  @Property(() => HotelModel)
+  @Allow(null)
+  Hotel: HotelModel | null;
 
-  @CollectionOf(() => UserModel)
-  @Required()
-  User: UserModel[];
+  @Property(() => UserModel)
+  @Allow(null)
+  User: UserModel | null;
 
   @Property(Boolean)
   @Required()

@@ -24,9 +24,9 @@ model Auth {
   email           String    @unique
   password        String
   role            Role      @default(USER)
-  Admin           Admin[]
-  Hotel           Hotel[]
-  User            User[]
+  Admin           Admin?
+  Hotel           Hotel?
+  User            User?
   // @TsED.Description("User activation status")
   disabled        Boolean   @default(false)
   emailVerifiedAt DateTime?
@@ -44,7 +44,7 @@ model User {
   id       Int        @id @default(autoincrement())
   bookings Booking[]
   auth     Auth       @relation(fields: [authId], references: [id])
-  authId   Int
+  authId   Int        @unique
   Favorite Favorite[]
   image    String?
 }
@@ -52,7 +52,7 @@ model User {
 model Admin {
   id     Int  @id @default(autoincrement())
   auth   Auth @relation(fields: [authId], references: [id])
-  authId Int
+  authId Int  @unique
 }
 
 model Hotel {
@@ -69,7 +69,7 @@ model Hotel {
   website      String
   rooms        Room[]
   auth         Auth           @relation(fields: [authId], references: [id])
-  authId       Int
+  authId       Int            @unique
   Favorite     Favorite[]
   FeatureHotel FeatureHotel[]
   longitude    Float
