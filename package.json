@@ -16,7 +16,8 @@
     "prisma:generate": "npx prisma generate",
     "test:lint": "eslint '**/*.{ts,js}'",
     "test:lint:fix": "eslint '**/*.{ts,js}' --fix",
-    "prettier": "prettier '**/*.{ts,js,json,md,yml,yaml}' --write"
+    "prettier": "prettier '**/*.{ts,js,json,md,yml,yaml}' --write",
+    "docker:build": "npm run build && docker-compose build"
   },
   "dependencies": {
     "@prisma/client": "^4.5.0",
