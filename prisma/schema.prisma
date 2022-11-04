@@ -12,10 +12,164 @@ datasource db {
 
 generator tsed {
   provider = "tsed-prisma"
+  output   = "../prisma/generated/tsed"
+}
+
+model Auth {
+  id              Int       @id @default(autoincrement())
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+  // @TsED.Email()
+  // @TsED.Description("User email, must be unique")
+  email           String    @unique
+  password        String
+  role            Role      @default(USER)
+  Admin           Admin[]
+  Hotel           Hotel[]
+  User            User[]
+  // @TsED.Description("User activation status")
+  disabled        Boolean   @default(false)
+  emailVerifiedAt DateTime?
+  // @TsED.Description("User jwt token")
+  token           String?
+}
+
+enum Role {
+  ADMIN
+  HOTEL
+  USER
 }
 
 model User {
-  id    Int     @default(autoincrement()) @id
-  email String  @unique
-  name  String?
+  id       Int        @id @default(autoincrement())
+  bookings Booking[]
+  auth     Auth       @relation(fields: [authId], references: [id])
+  authId   Int
+  Favorite Favorite[]
+  image    String?
+}
+
+model Admin {
+  id     Int  @id @default(autoincrement())
+  auth   Auth @relation(fields: [authId], references: [id])
+  authId Int
+}
+
+model Hotel {
+  id           Int            @id @default(autoincrement())
+  name         String
+  description  String
+  address      String
+  city         String
+  state        String
+  country      String
+  zip          String
+  phone        String
+  email        String
+  website      String
+  rooms        Room[]
+  auth         Auth           @relation(fields: [authId], references: [id])
+  authId       Int
+  Favorite     Favorite[]
+  FeatureHotel FeatureHotel[]
+  longitude    Float
+  latitude     Float
+  images       Image[]
+}
+
+model Room {
+  id          Int           @id @default(autoincrement())
+  name        String
+  description String
+  price       Float
+  hotel       Hotel         @relation(fields: [hotelId], references: [id])
+  hotelId     Int
+  bookings    Booking[]
+  isAvailable Boolean       @default(true)
+  FeatureRoom FeatureRoom[]
+  images      Image[]
+  nbBed       Int
+}
+
+model Booking {
+  id        Int      @id @default(autoincrement())
+  checkIn   DateTime
+  checkOut  DateTime
+  room      Room?    @relation(fields: [roomId], references: [id])
+  roomId    Int?
+  user      User?    @relation(fields: [userId], references: [id])
+  userId    Int?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  nbPerson  Int
+  status    Status   @default(PENDING)
+}
+
+enum Status {
+  PENDING
+  CONFIRMED
+  REFUSED
+  CANCELED
+  ENDED
+}
+
+model Favorite {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  user      User     @relation(fields: [userId], references: [id])
+  userId    Int
+  hotel     Hotel    @relation(fields: [hotelId], references: [id])
+  hotelId   Int
+}
+
+model Feature {
+  id                Int              @id @default(autoincrement())
+  createdAt         DateTime         @default(now())
+  updatedAt         DateTime         @updatedAt
+  name              String
+  icon              String?
+  FeatureHotel      FeatureHotel[]
+  FeatureRoom       FeatureRoom[]
+  FeatureCategory   FeatureCategory? @relation(fields: [featureCategoryId], references: [id])
+  featureCategoryId Int?
+}
+
+model FeatureCategory {
+  id        Int       @id @default(autoincrement())
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  name      String
+  Features  Feature[]
+}
+
+model FeatureHotel {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  feature   Feature  @relation(fields: [featureId], references: [id])
+  featureId Int
+  hotel     Hotel    @relation(fields: [hotelId], references: [id])
+  hotelId   Int
+}
+
+model FeatureRoom {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  feature   Feature  @relation(fields: [featureId], references: [id])
+  featureId Int
+  room      Room     @relation(fields: [roomId], references: [id])
+  roomId    Int
+}
+
+model Image {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  url       String
+  Room      Room?    @relation(fields: [roomId], references: [id])
+  roomId    Int?
+  Hotel     Hotel?   @relation(fields: [hotelId], references: [id])
+  hotelId   Int?
 }
