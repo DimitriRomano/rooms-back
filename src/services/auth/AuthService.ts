@@ -45,7 +45,7 @@ export class AuthService {
     });
   }
 
-  verifyPassword(auth: Auth, plaintextPassword: string) {
+  async verifyPassword(auth: Auth, plaintextPassword: string) {
     return new Promise<boolean>((resolve, reject) => {
       compare(plaintextPassword, auth.password, (err, result) => {
         if (err) {
@@ -53,6 +53,21 @@ export class AuthService {
         }
         resolve(result);
       });
+    });
+  }
+
+  async logout(auth: Auth) {
+    return await this.prisma.auth.update({
+      where: { id: auth.id },
+      data: { token: null }
+    });
+  }
+
+  async resetPassword(auth: Auth, newPassword: string) {
+    const encryptedPassword = await this.hashPassword(newPassword);
+    return await this.prisma.auth.update({
+      where: { id: auth.id },
+      data: { password: encryptedPassword }
     });
   }
 }

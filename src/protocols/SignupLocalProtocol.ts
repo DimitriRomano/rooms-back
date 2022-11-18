@@ -41,7 +41,6 @@ export class SignupLocalProtocol implements OnVerify {
   }
 
   createJwt(auth: Auth) {
-    console.log("=========================== TOKEN ===========================");
     const { issuer, audience, secretOrKey, maxAge = 3600 } = this.jwtSettings;
     const now = Date.now();
 
@@ -56,7 +55,6 @@ export class SignupLocalProtocol implements OnVerify {
       secretOrKey
     );
     console.log(token);
-    console.log("=========================== TOKEN ===========================");
     return token;
   }
 }
