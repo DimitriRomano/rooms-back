@@ -12,7 +12,7 @@ datasource db {
 
 generator tsed {
   provider = "tsed-prisma"
-  output   = "../prisma/generated/tsed"
+  // output   = "../prisma/generated/tsed"
 }
 
 model Auth {

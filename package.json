@@ -20,7 +20,7 @@
     "docker:build": "npm run build && docker-compose build"
   },
   "dependencies": {
-    "@prisma/client": "^4.5.0",
+    "@prisma/client": "^4.6.1",
     "@tsed/ajv": "^7.2.3",
     "@tsed/common": "^7.2.3",
     "@tsed/core": "^7.2.3",
@@ -39,7 +39,7 @@
     "@tsed/platform-params": "^7.2.3",
     "@tsed/platform-response-filter": "^7.2.3",
     "@tsed/platform-views": "^7.2.3",
-    "@tsed/prisma": "^7.2.3",
+    "@tsed/prisma": "^7.5.0",
     "@tsed/schema": "^7.2.3",
     "@tsed/swagger": "^7.2.3",
     "ajv": "^8.11.0",
