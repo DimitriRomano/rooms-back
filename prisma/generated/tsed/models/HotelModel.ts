@@ -1,10 +1,10 @@
 import { Hotel } from "../client";
-import { Integer, Required, Property, CollectionOf } from "@tsed/schema";
+import { Integer, Required, Property, CollectionOf, Allow } from "@tsed/schema";
 import { RoomModel } from "./RoomModel";
-import { AuthModel } from "./AuthModel";
 import { FavoriteModel } from "./FavoriteModel";
 import { FeatureHotelModel } from "./FeatureHotelModel";
 import { ImageModel } from "./ImageModel";
+import { HotelAdminInformationModel } from "./HotelAdminInformationModel";
 
 export class HotelModel implements Hotel {
   @Property(Number)
@@ -56,15 +56,6 @@ export class HotelModel implements Hotel {
   @Required()
   rooms: RoomModel[];
 
-  @Property(() => AuthModel)
-  @Required()
-  auth: AuthModel;
-
-  @Property(Number)
-  @Integer()
-  @Required()
-  authId: number;
-
   @CollectionOf(() => FavoriteModel)
   @Required()
   Favorite: FavoriteModel[];
@@ -84,5 +75,14 @@ export class HotelModel implements Hotel {
   @CollectionOf(() => ImageModel)
   @Required()
   images: ImageModel[];
+
+  @Property(() => HotelAdminInformationModel)
+  @Allow(null)
+  HotelAdminInformation: HotelAdminInformationModel | null;
+
+  @Property(Number)
+  @Integer()
+  @Allow(null)
+  hotelAdminInformationId: number | null;
 }
 

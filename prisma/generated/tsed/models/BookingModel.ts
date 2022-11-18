@@ -1,7 +1,7 @@
 import { Booking } from "../client";
 import { Integer, Required, Property, Format, Allow, Enum } from "@tsed/schema";
 import { RoomModel } from "./RoomModel";
-import { UserModel } from "./UserModel";
+import { UserInformationModel } from "./UserInformationModel";
 import { Status } from "../enums";
 
 export class BookingModel implements Booking {
@@ -29,9 +29,9 @@ export class BookingModel implements Booking {
   @Allow(null)
   roomId: number | null;
 
-  @Property(() => UserModel)
+  @Property(() => UserInformationModel)
   @Allow(null)
-  user: UserModel | null;
+  user: UserInformationModel | null;
 
   @Property(Number)
   @Integer()
