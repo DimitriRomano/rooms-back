@@ -1,9 +1,9 @@
 import { Auth } from "../client";
 import { Integer, Required, Property, Format, Enum, Allow } from "@tsed/schema";
 import { Role } from "../enums";
-import { AdminModel } from "./AdminModel";
-import { HotelModel } from "./HotelModel";
-import { UserModel } from "./UserModel";
+import { AdminInformationModel } from "./AdminInformationModel";
+import { UserInformationModel } from "./UserInformationModel";
+import { HotelAdminInformationModel } from "./HotelAdminInformationModel";
 
 export class AuthModel implements Auth {
   @Property(Number)
@@ -33,17 +33,13 @@ export class AuthModel implements Auth {
   @Enum(Role)
   role: Role;
 
-  @Property(() => AdminModel)
+  @Property(() => AdminInformationModel)
   @Allow(null)
-  Admin: AdminModel | null;
+  AdminInformation: AdminInformationModel | null;
 
-  @Property(() => HotelModel)
+  @Property(() => UserInformationModel)
   @Allow(null)
-  Hotel: HotelModel | null;
-
-  @Property(() => UserModel)
-  @Allow(null)
-  User: UserModel | null;
+  UserInformation: UserInformationModel | null;
 
   @Property(Boolean)
   @Required()
@@ -57,5 +53,9 @@ export class AuthModel implements Auth {
   @Property(String)
   @Allow(null)
   token: string | null;
+
+  @Property(() => HotelAdminInformationModel)
+  @Allow(null)
+  HotelAdminInformation: HotelAdminInformationModel | null;
 }
 

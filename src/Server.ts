@@ -1,17 +1,18 @@
-import { join } from "path";
-import { Configuration, Inject } from "@tsed/di";
+import "@tsed/ajv";
 import { PlatformApplication } from "@tsed/common";
+import { Configuration, Inject } from "@tsed/di";
 import "@tsed/platform-express"; // /!\ keep this import
+import "@tsed/swagger";
 import bodyParser from "body-parser";
 import compress from "compression";
 import cookieParser from "cookie-parser";
-import methodOverride from "method-override";
 import cors from "cors";
-import "@tsed/ajv";
-import "@tsed/swagger";
+import session from "express-session";
+import methodOverride from "method-override";
 import { config } from "./config/index";
-import * as rest from "./controllers/rest/index";
 import * as pages from "./controllers/pages/index";
+import * as rest from "./controllers/rest/index";
+import "./protocols";
 
 @Configuration({
   ...config,
@@ -23,12 +24,6 @@ import * as pages from "./controllers/pages/index";
     "/rest": [...Object.values(rest)],
     "/": [...Object.values(pages)]
   },
-  swagger: [
-    {
-      path: "/doc",
-      specVersion: "3.0.1"
-    }
-  ],
   middlewares: [
     cors(),
     cookieParser(),
@@ -39,12 +34,6 @@ import * as pages from "./controllers/pages/index";
       extended: true
     })
   ],
-  views: {
-    root: join(process.cwd(), "../views"),
-    extensions: {
-      ejs: "ejs"
-    }
-  },
   exclude: ["**/*.spec.ts"]
 })
 export class Server {
@@ -53,4 +42,28 @@ export class Server {
 
   @Configuration()
   protected settings: Configuration;
+
+  $beforeRoutesInit() {
+    this.app
+      .use(cookieParser())
+      .use(methodOverride())
+      .use(bodyParser.json())
+      .use(
+        bodyParser.urlencoded({
+          extended: true
+        })
+      )
+      .use(
+        session({
+          secret: "eH8v9qpfxVHC00brgf3E4ONtK7NhrfYYfE1i7C5PmVuwACQZvm1YpCCvT2TMw6Sck71ybe7SbVs0dmcdeLxVkkQsPzqzkiJrSwLi",
+          resave: true,
+          saveUninitialized: true,
+          cookie: {
+            path: "/",
+            httpOnly: true,
+            secure: false
+          }
+        })
+      );
+  }
 }

@@ -1,8 +1,8 @@
-import { Admin } from "../client";
+import { AdminInformation } from "../client";
 import { Integer, Required, Property } from "@tsed/schema";
 import { AuthModel } from "./AuthModel";
 
-export class AdminModel implements Admin {
+export class AdminInformationModel implements AdminInformation {
   @Property(Number)
   @Integer()
   @Required()

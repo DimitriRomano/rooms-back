@@ -1,10 +1,10 @@
-import { User } from "../client";
+import { UserInformation } from "../client";
 import { Integer, Required, Property, CollectionOf, Allow } from "@tsed/schema";
 import { BookingModel } from "./BookingModel";
 import { AuthModel } from "./AuthModel";
 import { FavoriteModel } from "./FavoriteModel";
 
-export class UserModel implements User {
+export class UserInformationModel implements UserInformation {
   @Property(Number)
   @Integer()
   @Required()
@@ -30,5 +30,13 @@ export class UserModel implements User {
   @Property(String)
   @Allow(null)
   image: string | null;
+
+  @Property(String)
+  @Required()
+  firstName: string;
+
+  @Property(String)
+  @Required()
+  lastName: string;
 }
 

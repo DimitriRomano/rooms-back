@@ -1,6 +1,6 @@
 import { Favorite } from "../client";
 import { Integer, Required, Property, Format } from "@tsed/schema";
-import { UserModel } from "./UserModel";
+import { UserInformationModel } from "./UserInformationModel";
 import { HotelModel } from "./HotelModel";
 
 export class FavoriteModel implements Favorite {
@@ -19,9 +19,9 @@ export class FavoriteModel implements Favorite {
   @Required()
   updatedAt: Date;
 
-  @Property(() => UserModel)
+  @Property(() => UserInformationModel)
   @Required()
-  user: UserModel;
+  user: UserInformationModel;
 
   @Property(Number)
   @Integer()

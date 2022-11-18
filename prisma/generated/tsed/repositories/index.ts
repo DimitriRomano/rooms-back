@@ -1,4 +1,4 @@
-export { AdminsRepository } from "./AdminsRepository";
+export { AdminInformationsRepository } from "./AdminInformationsRepository";
 export { AuthsRepository } from "./AuthsRepository";
 export { BookingsRepository } from "./BookingsRepository";
 export { FavoritesRepository } from "./FavoritesRepository";
@@ -6,7 +6,8 @@ export { FeatureCategoriesRepository } from "./FeatureCategoriesRepository";
 export { FeatureHotelsRepository } from "./FeatureHotelsRepository";
 export { FeatureRoomsRepository } from "./FeatureRoomsRepository";
 export { FeaturesRepository } from "./FeaturesRepository";
+export { HotelAdminInformationsRepository } from "./HotelAdminInformationsRepository";
 export { HotelsRepository } from "./HotelsRepository";
 export { ImagesRepository } from "./ImagesRepository";
 export { RoomsRepository } from "./RoomsRepository";
-export { UsersRepository } from "./UsersRepository";
+export { UserInformationsRepository } from "./UserInformationsRepository";
