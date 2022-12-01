@@ -3,4 +3,7 @@
  */
 
 export * from "./AuthController";
-export * from "./UserController";
+export * from "./FeatureCategoryController";
+export * from "./FeatureController";
+export * from "./HotelController";
+export * from "./RoomController";
