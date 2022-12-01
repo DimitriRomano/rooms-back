@@ -16,16 +16,12 @@ export class RoomCtrl {
 
   @Get("/")
   @Returns(200, Array).Of(RoomModel)
-  @Security("jwt")
-  @Authorize("jwt")
   async getAll(@BodyParams() args?: Prisma.RoomFindManyArgs) {
     return this.roomService.$findMany(args);
   }
 
   @Get("/:id")
   @Returns(200, RoomModel)
-  @Security("jwt")
-  @Authorize("jwt")
   async getOne(@PathParams("id") id: number) {
     return this.roomService.$findUnique(id);
   }

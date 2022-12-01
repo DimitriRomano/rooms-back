@@ -16,16 +16,12 @@ export class FeatureCategoryCtrl {
 
   @Get("/")
   @Returns(200, Array).Of(FeatureCategoryModel)
-  @Security("jwt")
-  @Authorize("jwt")
   async getAll(@BodyParams() args?: Prisma.FeatureCategoryFindManyArgs) {
     return this.featureCategoryService.$findMany(args);
   }
 
   @Get("/:id")
   @Returns(200, FeatureCategoryModel)
-  @Security("jwt")
-  @Authorize("jwt")
   async getOne(@PathParams("id") id: number) {
     return this.featureCategoryService.$findUnique(id);
   }

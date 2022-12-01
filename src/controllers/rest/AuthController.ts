@@ -67,8 +67,6 @@ export class AuthCtrl {
 
   @Get("/:id")
   @Returns(200, AuthModel)
-  @Security("jwt")
-  @Authorize("jwt")
   async getOne(@BodyParams("id") id: number) {
     return this.authService.$findUnique(id);
   }
