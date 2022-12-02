@@ -14,7 +14,7 @@ export class HotelCtrl {
   @Inject()
   protected hotelService: HotelService;
 
-  @Get("/")
+  @Patch("/")
   @Returns(200, Array).Of(HotelModel)
   async getAll(@BodyParams() args?: HotelFind) {
     return this.hotelService.$findMany(args);

@@ -14,7 +14,7 @@ export class RoomCtrl {
   @Inject()
   protected roomService: RoomService;
 
-  @Get("/")
+  @Patch("/")
   @Returns(200, Array).Of(RoomModel)
   async getAll(@BodyParams() args?: RoomFind) {
     return this.roomService.$findMany(args);

@@ -14,7 +14,7 @@ export class BookingCtrl {
   @Inject()
   protected bookingService: BookingService;
 
-  @Get("/")
+  @Patch("/")
   @Returns(200, Array).Of(BookingModel)
   async getAll(@BodyParams() args?: BookingFind) {
     return this.bookingService.$findMany(args);

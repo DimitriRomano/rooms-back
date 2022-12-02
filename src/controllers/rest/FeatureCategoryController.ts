@@ -14,7 +14,7 @@ export class FeatureCategoryCtrl {
   @Inject()
   protected featureCategoryService: FeatureCategoryService;
 
-  @Get("/")
+  @Patch("/")
   @Returns(200, Array).Of(FeatureCategoryModel)
   async getAll(@BodyParams() args?: FeatureCategoryFind) {
     return this.featureCategoryService.$findMany(args);

@@ -58,7 +58,7 @@ export class AuthCtrl {
     return auth;
   }
 
-  @Get("/")
+  @Patch("/")
   @Returns(200, Array).Of(AuthModel)
   @Security("jwt")
   @Authorize("jwt")

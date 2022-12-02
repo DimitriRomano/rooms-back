@@ -14,7 +14,7 @@ export class FeatureCtrl {
   @Inject()
   protected featureService: FeatureService;
 
-  @Get("/")
+  @Patch("/")
   @Returns(200, Array).Of(FeatureModel)
   async getAll(@BodyParams() args?: FeatureFind) {
     return this.featureService.$findMany(args);
