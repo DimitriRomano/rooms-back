@@ -3,6 +3,8 @@
  */
 
 export * from "./AuthController";
+export * from "./BookingController";
+export * from "./FavoriteController";
 export * from "./FeatureCategoryController";
 export * from "./FeatureController";
 export * from "./HotelController";

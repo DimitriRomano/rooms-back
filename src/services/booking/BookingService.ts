@@ -21,8 +21,8 @@ export class BookingService extends BookingsRepository {
   async $create(booking: BookingCreation) {
     const { id } = await this.create({
       data: {
-        checkIn: booking.checkIn!,
-        checkOut: booking.checkOut || new Date(booking.checkIn!.getTime() + 86400000),
+        checkIn: booking.checkIn || new Date(),
+        checkOut: booking.checkOut || new Date((booking.checkIn || new Date()).getTime() + 86400000),
         nbPerson: booking.nbPersons,
         authId: booking.authId,
         roomId: booking.roomId
