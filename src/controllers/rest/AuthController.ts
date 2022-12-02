@@ -3,7 +3,7 @@ import { Prisma } from "@prisma/client";
 import { Post, Req } from "@tsed/common";
 import { Controller, Inject, ProviderScope, Scope } from "@tsed/di";
 import { Authenticate, Authorize } from "@tsed/passport";
-import { BodyParams } from "@tsed/platform-params";
+import { BodyParams, PathParams } from "@tsed/platform-params";
 import { AuthModel } from "@tsed/prisma";
 import { Delete, Get, Patch, Returns, Security } from "@tsed/schema";
 import { AuthUpdate } from "../../models/auth/AuthUpdate";
@@ -76,7 +76,7 @@ export class AuthCtrl {
   @Returns(200, AuthModel)
   @Security("jwt")
   @Authorize("jwt")
-  async update(@BodyParams("id") id: number, @BodyParams() auth: AuthUpdate) {
+  async update(@PathParams("id") id: number, @BodyParams() auth: AuthUpdate) {
     return this.authService.$update(id, auth);
   }
 

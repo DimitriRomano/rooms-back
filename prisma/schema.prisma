@@ -22,6 +22,7 @@ model Auth {
   // @TsED.Email()
   // @TsED.Description("User email, must be unique")
   email           String    @unique
+  // @TsED.WriteOnly(true)
   password        String
   role            Role      @default(USER)
   // @TsED.Description("User activation status")

@@ -33,7 +33,7 @@ export class SignupLocalProtocol implements OnVerify {
       throw new Forbidden("Email is already registered");
     }
 
-    const auth = await this.authService.create({ ...newAuth, password: encryptedPassword });
+    const auth = await this.authService.create({ data: { ...newAuth, password: encryptedPassword } });
 
     const token = this.createJwt(auth);
 
