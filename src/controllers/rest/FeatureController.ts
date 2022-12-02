@@ -1,10 +1,10 @@
-import { Prisma } from "@prisma/client";
-import { Controller, Scope, ProviderScope, Inject } from "@tsed/di";
+import { Controller, Inject, ProviderScope, Scope } from "@tsed/di";
 import { Authorize } from "@tsed/passport";
 import { BodyParams, PathParams } from "@tsed/platform-params";
 import { FeatureModel } from "@tsed/prisma";
-import { Get, Returns, Security, Post, Delete, Patch } from "@tsed/schema";
+import { Delete, Get, Patch, Post, Returns, Security } from "@tsed/schema";
 import { FeatureCreation } from "../../models/feature/FeatureCreation";
+import { FeatureFind } from "../../models/feature/FeatureFind";
 import { FeatureUpdate } from "../../models/feature/FeatureUpdate";
 import { FeatureService } from "../../services/feature/FeatureService";
 
@@ -16,7 +16,7 @@ export class FeatureCtrl {
 
   @Get("/")
   @Returns(200, Array).Of(FeatureModel)
-  async getAll(@BodyParams() args?: Prisma.FeatureFindManyArgs) {
+  async getAll(@BodyParams() args?: FeatureFind) {
     return this.featureService.$findMany(args);
   }
 

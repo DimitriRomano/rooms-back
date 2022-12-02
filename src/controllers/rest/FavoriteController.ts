@@ -1,11 +1,11 @@
-import { Prisma } from "@prisma/client";
 import { Controller, Inject, ProviderScope, Scope } from "@tsed/di";
 import { Authorize } from "@tsed/passport";
 import { BodyParams, PathParams } from "@tsed/platform-params";
 import { FavoriteModel } from "@tsed/prisma";
 import { Delete, Get, Post, Returns, Security } from "@tsed/schema";
-import { FavoriteService } from "../../services/favorite/FavoriteService";
 import { FavoriteCreation } from "../../models/favorite/FavoriteCreation";
+import { FavoriteFind } from "../../models/favorite/FavoriteFind";
+import { FavoriteService } from "../../services/favorite/FavoriteService";
 
 @Controller("/favorites")
 @Scope(ProviderScope.SINGLETON)
@@ -15,7 +15,7 @@ export class FavoriteCtrl {
 
   @Get("/")
   @Returns(200, Array).Of(FavoriteModel)
-  async getAll(@BodyParams() args?: Prisma.FavoriteFindManyArgs) {
+  async getAll(@BodyParams() args?: FavoriteFind) {
     return this.favoriteService.$findMany(args);
   }
 

@@ -1,10 +1,10 @@
-import { Prisma } from "@prisma/client";
-import { Controller, Scope, ProviderScope, Inject } from "@tsed/di";
+import { Controller, Inject, ProviderScope, Scope } from "@tsed/di";
 import { Authorize } from "@tsed/passport";
 import { BodyParams, PathParams } from "@tsed/platform-params";
 import { BookingModel } from "@tsed/prisma";
-import { Get, Returns, Post, Security, Patch, Delete } from "@tsed/schema";
+import { Delete, Get, Patch, Post, Returns, Security } from "@tsed/schema";
 import { BookingCreation } from "../../models/booking/BookingCreation";
+import { BookingFind } from "../../models/booking/BookingFind";
 import { BookingUpdate } from "../../models/booking/BookingUpdate";
 import { BookingService } from "../../services/booking/BookingService";
 
@@ -16,7 +16,7 @@ export class BookingCtrl {
 
   @Get("/")
   @Returns(200, Array).Of(BookingModel)
-  async getAll(@BodyParams() args?: Prisma.BookingFindManyArgs) {
+  async getAll(@BodyParams() args?: BookingFind) {
     return this.bookingService.$findMany(args);
   }
 

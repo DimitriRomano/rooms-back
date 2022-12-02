@@ -10,6 +10,7 @@ import { AuthUpdate } from "../../models/auth/AuthUpdate";
 import { AuthCreation } from "../../models/auth/AuthCreation";
 import { Credentials } from "../../models/auth/Credentials";
 import { AuthService } from "../../services/auth/AuthService";
+import { AuthFind } from "../../models/auth/AuthFind";
 
 @Controller("/auth")
 @Scope(ProviderScope.SINGLETON)
@@ -61,7 +62,7 @@ export class AuthCtrl {
   @Returns(200, Array).Of(AuthModel)
   @Security("jwt")
   @Authorize("jwt")
-  async getAll(@BodyParams() args?: Prisma.AuthFindManyArgs) {
+  async getAll(@BodyParams() args?: AuthFind) {
     return this.authService.$findMany();
   }
 

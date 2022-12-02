@@ -1,13 +1,32 @@
 import { Injectable } from "@tsed/di";
 import { RoomsRepository } from "@tsed/prisma";
-import { RoomUpdate } from "../../models/room/RoomUpdate";
+import { RoomFind } from "../../models/room/RoomFind";
 import { RoomCreation } from "../../models/room/RoomCreation";
-import { Prisma } from "@prisma/client";
+import { RoomUpdate } from "../../models/room/RoomUpdate";
 
 @Injectable()
 export class RoomService extends RoomsRepository {
-  async $findMany(args?: Prisma.RoomFindManyArgs | undefined) {
-    return this.findMany(args);
+  async $findMany(args?: RoomFind | undefined) {
+    const isAvailableAt = args?.where?.isAvailableAt;
+
+    const where = {
+      ...args?.where,
+      bookings: {
+        every: {
+          checkIn: {
+            lte: isAvailableAt
+          },
+          checkOut: {
+            gte: isAvailableAt
+          }
+        }
+      }
+    };
+
+    return this.findMany({
+      ...args,
+      where
+    });
   }
 
   async $findUnique(id: number) {

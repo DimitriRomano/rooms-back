@@ -1,9 +1,9 @@
-import { Prisma } from "@prisma/client";
 import { Controller, Inject, ProviderScope, Scope } from "@tsed/di";
 import { Authorize } from "@tsed/passport";
 import { BodyParams, PathParams } from "@tsed/platform-params";
 import { RoomModel } from "@tsed/prisma";
 import { Delete, Get, Patch, Post, Returns, Security } from "@tsed/schema";
+import { RoomFind } from "../../models/room/RoomFind";
 import { RoomCreation } from "../../models/room/RoomCreation";
 import { RoomUpdate } from "../../models/room/RoomUpdate";
 import { RoomService } from "../../services/room/RoomService";
@@ -16,7 +16,7 @@ export class RoomCtrl {
 
   @Get("/")
   @Returns(200, Array).Of(RoomModel)
-  async getAll(@BodyParams() args?: Prisma.RoomFindManyArgs) {
+  async getAll(@BodyParams() args?: RoomFind) {
     return this.roomService.$findMany(args);
   }
 

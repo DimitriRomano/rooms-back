@@ -1,10 +1,10 @@
-import { Prisma } from "@prisma/client";
-import { Controller, Scope, ProviderScope, Inject } from "@tsed/di";
+import { Controller, Inject, ProviderScope, Scope } from "@tsed/di";
 import { Authorize } from "@tsed/passport";
-import { PathParams, BodyParams } from "@tsed/platform-params";
+import { BodyParams, PathParams } from "@tsed/platform-params";
 import { HotelModel } from "@tsed/prisma";
 import { Delete, Get, Patch, Post, Returns, Security } from "@tsed/schema";
 import { HotelCreation } from "../../models/hotel/HotelCreation";
+import { HotelFind } from "../../models/hotel/HotelFind";
 import { HotelUpdate } from "../../models/hotel/HotelUpdate";
 import { HotelService } from "../../services/hotel/HotelService";
 
@@ -16,7 +16,7 @@ export class HotelCtrl {
 
   @Get("/")
   @Returns(200, Array).Of(HotelModel)
-  async getAll(@BodyParams() args?: Prisma.HotelFindManyArgs) {
+  async getAll(@BodyParams() args?: HotelFind) {
     return this.hotelService.$findMany(args);
   }
 

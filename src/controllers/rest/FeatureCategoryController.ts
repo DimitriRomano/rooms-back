@@ -1,12 +1,12 @@
-import { Prisma } from "@prisma/client";
-import { Controller, Scope, ProviderScope, Inject } from "@tsed/di";
+import { Controller, Inject, ProviderScope, Scope } from "@tsed/di";
 import { Authorize } from "@tsed/passport";
 import { BodyParams, PathParams } from "@tsed/platform-params";
 import { FeatureCategoryModel } from "@tsed/prisma";
-import { Get, Returns, Security, Post, Patch, Delete } from "@tsed/schema";
-import { FeatureCategoryService } from "../../services/feature-category/FeatureCategoryService";
+import { Delete, Get, Patch, Post, Returns, Security } from "@tsed/schema";
 import { FeatureCategoryCreation } from "../../models/feature-category/FeatureCategoryCreation";
+import { FeatureCategoryFind } from "../../models/feature-category/FeatureCategoryFind";
 import { FeatureCategoryUpdate } from "../../models/feature-category/FeatureCategoryUpdate";
+import { FeatureCategoryService } from "../../services/feature-category/FeatureCategoryService";
 
 @Controller("/feature-categories")
 @Scope(ProviderScope.SINGLETON)
@@ -16,7 +16,7 @@ export class FeatureCategoryCtrl {
 
   @Get("/")
   @Returns(200, Array).Of(FeatureCategoryModel)
-  async getAll(@BodyParams() args?: Prisma.FeatureCategoryFindManyArgs) {
+  async getAll(@BodyParams() args?: FeatureCategoryFind) {
     return this.featureCategoryService.$findMany(args);
   }
 
