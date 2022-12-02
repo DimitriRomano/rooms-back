@@ -1,8 +1,10 @@
 import { Prisma } from "@prisma/client";
-import { BodyParams, Inject } from "@tsed/common";
+import { BodyParams, Controller, Inject, ProviderScope, Scope } from "@tsed/common";
 import { FeatureRoomModel, FeatureRoomsRepository } from "@tsed/prisma";
 import { Patch, Returns } from "@tsed/schema";
 
+@Controller("/feature-rooms")
+@Scope(ProviderScope.SINGLETON)
 export class FeatureRoomCtrl {
   @Inject()
   protected featureRoomService: FeatureRoomsRepository;

@@ -7,5 +7,7 @@ export * from "./BookingController";
 export * from "./FavoriteController";
 export * from "./FeatureCategoryController";
 export * from "./FeatureController";
+export * from "./FeatureHotelController";
+export * from "./FeatureRoomController";
 export * from "./HotelController";
 export * from "./RoomController";
