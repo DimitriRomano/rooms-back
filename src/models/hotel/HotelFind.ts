@@ -10,4 +10,8 @@ export class HotelFind implements Prisma.HotelFindManyArgs {
   include?: Prisma.HotelInclude;
   select?: Prisma.HotelSelect;
   count?: boolean;
+
+  constructor(obj: Partial<HotelFind> = {}) {
+    Object.assign(this, obj);
+  }
 }

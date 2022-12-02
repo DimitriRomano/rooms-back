@@ -10,4 +10,8 @@ export class BookingFind implements Prisma.BookingFindManyArgs {
   include?: Prisma.BookingInclude;
   select?: Prisma.BookingSelect;
   count?: boolean;
+
+  constructor(obj: Partial<BookingFind> = {}) {
+    Object.assign(this, obj);
+  }
 }

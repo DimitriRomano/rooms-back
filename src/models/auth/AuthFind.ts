@@ -10,4 +10,8 @@ export class AuthFind implements Prisma.AuthFindManyArgs {
   include?: Prisma.AuthInclude;
   select?: Prisma.AuthSelect;
   count?: boolean;
+
+  constructor(obj: Partial<AuthFind> = {}) {
+    Object.assign(this, obj);
+  }
 }

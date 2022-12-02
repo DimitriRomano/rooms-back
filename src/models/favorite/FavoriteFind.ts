@@ -10,4 +10,8 @@ export class FavoriteFind implements Prisma.FavoriteFindManyArgs {
   include?: Prisma.FavoriteInclude;
   select?: Prisma.FavoriteSelect;
   count?: boolean;
+
+  constructor(obj: Partial<FavoriteFind> = {}) {
+    Object.assign(this, obj);
+  }
 }

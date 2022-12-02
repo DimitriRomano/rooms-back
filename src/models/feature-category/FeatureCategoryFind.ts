@@ -10,4 +10,8 @@ export class FeatureCategoryFind implements Prisma.FeatureCategoryFindManyArgs {
   include?: Prisma.FeatureCategoryInclude;
   select?: Prisma.FeatureCategorySelect;
   count?: boolean;
+
+  constructor(obj: Partial<FeatureCategoryFind> = {}) {
+    Object.assign(this, obj);
+  }
 }
