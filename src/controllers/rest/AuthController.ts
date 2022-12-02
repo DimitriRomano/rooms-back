@@ -27,7 +27,7 @@ export class AuthCtrl {
   }
 
   @Post("/signup")
-  @Returns(201, String)
+  @Returns(201, AuthModel)
   @Authenticate("signup")
   async signup(@Req() req: Req, @BodyParams() _auth: AuthCreation) {
     // FACADE
@@ -35,11 +35,12 @@ export class AuthCtrl {
   }
 
   @Post("/logout")
-  @Returns(200, String)
+  @Returns(204)
   @Authorize("jwt")
   @Security("jwt")
   async logout(@Req("auth") auth: AuthModel) {
-    return this.authService.logout(auth);
+    await this.authService.logout(auth);
+    return;
   }
 
   @Post("/reset")
