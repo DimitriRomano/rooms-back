@@ -4,7 +4,7 @@ import { Authorize } from "@tsed/passport";
 import { BodyParams, PathParams } from "@tsed/platform-params";
 import { FavoriteModel } from "@tsed/prisma";
 import { Delete, Get, Post, Returns, Security } from "@tsed/schema";
-import { FavoriteService } from "src/services/favorite/FavoriteService";
+import { FavoriteService } from "../../services/favorite/FavoriteService";
 import { FavoriteCreation } from "../../models/favorite/FavoriteCreation";
 
 @Controller("/favorites")
