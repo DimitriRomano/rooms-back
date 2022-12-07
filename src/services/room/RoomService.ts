@@ -90,6 +90,13 @@ export class RoomService extends RoomsRepository {
   }
 
   async $delete(id: number) {
+    // delete the featureRoom
+    await this.prisma.featureRoom.deleteMany({
+      where: {
+        roomId: id
+      }
+    });
+
     return this.delete({
       where: {
         id
