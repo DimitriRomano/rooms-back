@@ -63,7 +63,7 @@ model Hotel {
   longitude    Float
   latitude     Float
   images       String[]
-  Auth         Auth?          @relation(fields: [authId], references: [id])
+  Auth         Auth?          @relation(fields: [authId], references: [id], onDelete: Cascade)
   authId       Int?
 }
 
@@ -72,7 +72,7 @@ model Room {
   name        String
   description String
   price       Float
-  hotel       Hotel         @relation(fields: [hotelId], references: [id])
+  hotel       Hotel         @relation(fields: [hotelId], references: [id], onDelete: Cascade)
   hotelId     Int
   bookings    Booking[]
   isAvailable Boolean       @default(true)
@@ -86,13 +86,13 @@ model Booking {
   id        Int      @id @default(autoincrement())
   checkIn   DateTime
   checkOut  DateTime
-  room      Room?    @relation(fields: [roomId], references: [id])
+  room      Room?    @relation(fields: [roomId], references: [id], onDelete: Cascade)
   roomId    Int?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   nbPerson  Int
   status    Status   @default(PENDING)
-  Auth      Auth?    @relation(fields: [authId], references: [id])
+  Auth      Auth?    @relation(fields: [authId], references: [id], onDelete: Cascade)
   authId    Int?
 }
 
@@ -108,9 +108,9 @@ model Favorite {
   id        Int      @id @default(autoincrement())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  hotel     Hotel    @relation(fields: [hotelId], references: [id])
+  hotel     Hotel    @relation(fields: [hotelId], references: [id], onDelete: Cascade)
   hotelId   Int
-  Auth      Auth?    @relation(fields: [authId], references: [id])
+  Auth      Auth?    @relation(fields: [authId], references: [id], onDelete: Cascade)
   authId    Int?
 }
 
@@ -122,7 +122,7 @@ model Feature {
   icon              String?
   FeatureHotel      FeatureHotel[]
   FeatureRoom       FeatureRoom[]
-  FeatureCategory   FeatureCategory? @relation(fields: [featureCategoryId], references: [id])
+  FeatureCategory   FeatureCategory? @relation(fields: [featureCategoryId], references: [id], onDelete: Cascade)
   featureCategoryId Int?
 }
 
@@ -138,9 +138,9 @@ model FeatureHotel {
   id        Int      @id @default(autoincrement())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  feature   Feature  @relation(fields: [featureId], references: [id])
+  feature   Feature  @relation(fields: [featureId], references: [id], onDelete: Cascade)
   featureId Int
-  hotel     Hotel    @relation(fields: [hotelId], references: [id])
+  hotel     Hotel    @relation(fields: [hotelId], references: [id], onDelete: Cascade)
   hotelId   Int
 }
 
@@ -148,8 +148,8 @@ model FeatureRoom {
   id        Int      @id @default(autoincrement())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  feature   Feature  @relation(fields: [featureId], references: [id])
+  feature   Feature  @relation(fields: [featureId], references: [id], onDelete: Cascade)
   featureId Int
-  room      Room     @relation(fields: [roomId], references: [id])
+  room      Room     @relation(fields: [roomId], references: [id], onDelete: Cascade)
   roomId    Int
 }

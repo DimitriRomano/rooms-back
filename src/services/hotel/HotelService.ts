@@ -88,11 +88,6 @@ export class HotelService extends HotelsRepository {
   }
 
   async $delete(id: number) {
-    await this.prisma.featureHotel.deleteMany({
-      where: {
-        hotelId: id
-      }
-    });
     return this.delete({
       where: {
         id
