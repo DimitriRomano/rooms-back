@@ -88,12 +88,4 @@ export class AuthCtrl {
   async delete(@BodyParams("id") id: number) {
     return this.authService.$delete(id);
   }
-
-  @Patch("/me")
-  @Returns(200, AuthModel)
-  @Security("jwt")
-  @Authorize("jwt")
-  async updateMe(@Req("auth") auth: AuthModel, @BodyParams() authUpdate: AuthUpdate) {
-    return this.authService.$update(auth.id, authUpdate);
-  }
 }

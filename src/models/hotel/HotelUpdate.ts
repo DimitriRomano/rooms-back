@@ -13,6 +13,7 @@ export class HotelUpdate {
   latitude?: number;
   longitude?: number;
   featuresIds?: number[];
+  images?: string[];
 
   constructor(obj: Partial<HotelUpdate> = {}) {
     Object.assign(this, obj);

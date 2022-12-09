@@ -69,7 +69,8 @@ export class RoomService extends RoomsRepository {
       data: {
         name: room.name,
         description: room.description || "",
-        price: room.price
+        price: room.price,
+        images: room.images
       }
     });
 
