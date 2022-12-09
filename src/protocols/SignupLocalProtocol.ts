@@ -4,7 +4,7 @@ import { Forbidden } from "@tsed/exceptions";
 import { OnVerify, Protocol } from "@tsed/passport";
 import * as jwt from "jsonwebtoken";
 import { IStrategyOptions, Strategy } from "passport-local";
-import { AuthCreation } from "../models/AuthCreation";
+import { AuthCreation } from "../models/auth/AuthCreation";
 import { AuthService } from "../services/auth/AuthService";
 
 @Protocol<IStrategyOptions>({
@@ -33,7 +33,7 @@ export class SignupLocalProtocol implements OnVerify {
       throw new Forbidden("Email is already registered");
     }
 
-    const auth = await this.authService.create({ ...newAuth, password: encryptedPassword });
+    const auth = await this.authService.create({ data: { ...newAuth, password: encryptedPassword } });
 
     const token = this.createJwt(auth);
 

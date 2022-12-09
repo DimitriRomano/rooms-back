@@ -1,11 +1,12 @@
 import { Auth, Prisma } from "@prisma/client";
-import { Injectable, Inject } from "@tsed/di";
-import { PrismaService } from "@tsed/prisma";
-import { AuthCreation } from "src/models/AuthCreation";
-import { hash, compare } from "bcrypt";
+import { Injectable } from "@tsed/di";
+import { AuthsRepository } from "@tsed/prisma";
+import { compare, hash } from "bcrypt";
+import { AuthCreation } from "../../models/auth/AuthCreation";
+import { AuthUpdate } from "../../models/auth/AuthUpdate";
 
 @Injectable()
-export class AuthService {
+export class AuthService extends AuthsRepository {
   hashSecret = "otocThZdutSrd11jHLk5snnxHx0ChNd01S1P0n6kiC6vAx9GA7d2fkOIRwO7J8bq4K95qXkx0ziS6iwis8c1UXGGxaPsHdk6Flfw";
 
   async hashPassword(plaintextPassword: string) {
@@ -26,15 +27,14 @@ export class AuthService {
     });
   }
 
-  @Inject()
-  protected prisma: PrismaService;
-
-  async create(auth: AuthCreation): Promise<Auth> {
+  async $create(auth: AuthCreation): Promise<Auth> {
     return this.prisma.auth.create({
       data: {
         email: auth.email,
         password: auth.password,
-        role: auth.role
+        role: auth.role,
+        firstName: auth.firstName,
+        lastName: auth.lastName
       }
     });
   }
@@ -68,6 +68,39 @@ export class AuthService {
     return await this.prisma.auth.update({
       where: { id: auth.id },
       data: { password: encryptedPassword }
+    });
+  }
+
+  async $update(id: number, auth: AuthUpdate) {
+    return this.update({
+      where: {
+        id
+      },
+      data: {
+        role: auth.role,
+        firstName: auth.firstName,
+        lastName: auth.lastName
+      }
+    });
+  }
+
+  async $delete(id: number) {
+    return this.delete({
+      where: {
+        id
+      }
+    });
+  }
+
+  async $findMany(args?: Prisma.AuthFindManyArgs | undefined) {
+    return this.findMany(args);
+  }
+
+  async $findUnique(id: number) {
+    return this.findUnique({
+      where: {
+        id
+      }
     });
   }
 }
