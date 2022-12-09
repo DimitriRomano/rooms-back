@@ -2,7 +2,7 @@ import { Controller, Inject, ProviderScope, Scope } from "@tsed/di";
 import { Authorize } from "@tsed/passport";
 import { BodyParams, PathParams } from "@tsed/platform-params";
 import { HotelModel } from "@tsed/prisma";
-import { Delete, Get, Patch, Post, Returns, Security } from "@tsed/schema";
+import { Delete, Description, Get, Patch, Post, Returns, Security } from "@tsed/schema";
 import { HotelCreation } from "../../models/hotel/HotelCreation";
 import { HotelFind } from "../../models/hotel/HotelFind";
 import { HotelUpdate } from "../../models/hotel/HotelUpdate";
@@ -15,18 +15,21 @@ export class HotelCtrl {
   protected hotelService: HotelService;
 
   @Patch("/")
+  @Description("get many hotels with filter")
   @Returns(200, Array).Of(HotelModel)
   async getAll(@BodyParams() args?: HotelFind) {
     return this.hotelService.$findMany(args);
   }
 
   @Get("/:id")
+  @Description("get one hotel by id")
   @Returns(200, HotelModel)
   async getOne(@PathParams("id") id: number) {
     return this.hotelService.$findUnique(id);
   }
 
   @Post("/")
+  @Description("create a hotel")
   @Security("jwt")
   @Authorize("jwt")
   @Returns(201, HotelModel)
@@ -35,6 +38,7 @@ export class HotelCtrl {
   }
 
   @Patch("/:id")
+  @Description("update a hotel")
   @Security("jwt")
   @Authorize("jwt")
   @Returns(200, HotelModel)
@@ -43,6 +47,7 @@ export class HotelCtrl {
   }
 
   @Delete("/:id")
+  @Description("delete a hotel")
   @Security("jwt")
   @Authorize("jwt")
   @Returns(200, String)

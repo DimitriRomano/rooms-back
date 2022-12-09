@@ -2,7 +2,7 @@ import { Controller, Inject, ProviderScope, Scope } from "@tsed/di";
 import { Authorize } from "@tsed/passport";
 import { BodyParams, PathParams } from "@tsed/platform-params";
 import { RoomModel } from "@tsed/prisma";
-import { Delete, Get, Patch, Post, Returns, Security } from "@tsed/schema";
+import { Delete, Description, Get, Patch, Post, Returns, Security } from "@tsed/schema";
 import { RoomFind } from "../../models/room/RoomFind";
 import { RoomCreation } from "../../models/room/RoomCreation";
 import { RoomUpdate } from "../../models/room/RoomUpdate";
@@ -15,18 +15,21 @@ export class RoomCtrl {
   protected roomService: RoomService;
 
   @Patch("/")
+  @Description("get many rooms with filter")
   @Returns(200, Array).Of(RoomModel)
   async getAll(@BodyParams() args?: RoomFind) {
     return this.roomService.$findMany(args);
   }
 
   @Get("/:id")
+  @Description("get one room by id")
   @Returns(200, RoomModel)
   async getOne(@PathParams("id") id: number) {
     return this.roomService.$findUnique(id);
   }
 
   @Post("/")
+  @Description("create a room")
   @Returns(201, RoomModel)
   @Security("jwt")
   @Authorize("jwt")
@@ -35,6 +38,7 @@ export class RoomCtrl {
   }
 
   @Patch("/:id")
+  @Description("update a room")
   @Returns(200, RoomModel)
   @Security("jwt")
   @Authorize("jwt")
@@ -43,6 +47,7 @@ export class RoomCtrl {
   }
 
   @Delete("/:id")
+  @Description("delete a room")
   @Returns(200, RoomModel)
   @Security("jwt")
   @Authorize("jwt")

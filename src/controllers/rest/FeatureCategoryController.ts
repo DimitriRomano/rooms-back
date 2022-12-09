@@ -2,7 +2,7 @@ import { Controller, Inject, ProviderScope, Scope } from "@tsed/di";
 import { Authorize } from "@tsed/passport";
 import { BodyParams, PathParams } from "@tsed/platform-params";
 import { FeatureCategoryModel } from "@tsed/prisma";
-import { Delete, Get, Patch, Post, Returns, Security } from "@tsed/schema";
+import { Delete, Description, Get, Patch, Post, Returns, Security } from "@tsed/schema";
 import { FeatureCategoryCreation } from "../../models/feature-category/FeatureCategoryCreation";
 import { FeatureCategoryFind } from "../../models/feature-category/FeatureCategoryFind";
 import { FeatureCategoryUpdate } from "../../models/feature-category/FeatureCategoryUpdate";
@@ -15,18 +15,21 @@ export class FeatureCategoryCtrl {
   protected featureCategoryService: FeatureCategoryService;
 
   @Patch("/")
+  @Description("get many feature categories with filter")
   @Returns(200, Array).Of(FeatureCategoryModel)
   async getAll(@BodyParams() args?: FeatureCategoryFind) {
     return this.featureCategoryService.$findMany(args);
   }
 
   @Get("/:id")
+  @Description("get one feature category by id")
   @Returns(200, FeatureCategoryModel)
   async getOne(@PathParams("id") id: number) {
     return this.featureCategoryService.$findUnique(id);
   }
 
   @Post("/")
+  @Description("create a feature category")
   @Returns(201, FeatureCategoryModel)
   @Security("jwt")
   @Authorize("jwt")
@@ -35,6 +38,7 @@ export class FeatureCategoryCtrl {
   }
 
   @Patch("/:id")
+  @Description("update a feature category")
   @Returns(200, FeatureCategoryModel)
   @Security("jwt")
   @Authorize("jwt")
@@ -43,6 +47,7 @@ export class FeatureCategoryCtrl {
   }
 
   @Delete("/:id")
+  @Description("delete a feature category")
   @Returns(200, FeatureCategoryModel)
   @Security("jwt")
   @Authorize("jwt")
