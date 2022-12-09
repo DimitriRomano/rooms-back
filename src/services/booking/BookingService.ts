@@ -41,7 +41,8 @@ export class BookingService extends BookingsRepository {
         checkIn: booking.checkIn,
         checkOut: booking.checkOut,
         nbPerson: booking.nbPersons,
-        authId: booking.authId
+        authId: booking.authId,
+        status: booking.status
       }
     });
 
