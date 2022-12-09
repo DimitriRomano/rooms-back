@@ -33,7 +33,8 @@ export class HotelService extends HotelsRepository {
         website: hotel.website || "",
         description: hotel.description || "",
         authId: hotel.authId,
-        state: hotel.state
+        state: hotel.state,
+        images: hotel.images
       }
     });
 

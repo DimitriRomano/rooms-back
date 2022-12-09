@@ -68,6 +68,11 @@ export class HotelCreation {
   @Example([1, 2, 3])
   featuresIds: number[];
 
+  @Description("Hotel images")
+  @Required()
+  @Example(["https://domain/image1.jpg", "https://domain/image2.jpg"])
+  images: string[];
+
   constructor(obj: Partial<HotelCreation> = {}) {
     if (!this.description) this.description = "";
     if (!this.phone) this.phone = "";
